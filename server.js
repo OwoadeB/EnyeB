@@ -8,10 +8,11 @@ const PORT = process.env.PORT || 5678;
 
 app.get('/api/rates/', async (req, res) => {
 
-  const { base, symbols } = req.query;
+  const { base, currency } = req.query;
+  const uri = `https://api.exchangeratesapi.io/latest?base=${base}&symbols=${currency}`
 
   try {
-    const results = await axios.get(`https://api.exchangeratesapi.io/latest?base=${base}&symbols=${symbols}`);
+    const results = await axios.get(uri);
     return res.json({
       results: results.data
     })
